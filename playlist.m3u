@@ -1,7 +1,1 @@
-#EXTM3U
 
-#EXTINF:-1 group-title="Digital TV", CH7 HD
-https://live-cdn.ch7.com/out/v1/eafeb02c55b64a15b278b1e66c7fc776/playlist_13.m3u8
-
-#EXTINF:-1 group-title="Digital TV", TV5 HD
-https://639bc5877c5fe.streamlock.net/tv5hdlive/tv5hdlive/playlist.m3u8
