@@ -36,6 +36,13 @@ def main():
 
     m3u_output = ["#EXTM3U\n"]
 
+    # เพิ่มช่อง Static CDN พื้นฐานกำกับไว้
+    m3u_output.append('#EXTINF:-1 group-title="Digital TV", CH7 HD (Static)')
+    m3u_output.append('https://live-cdn.ch7.com/out/v1/eafeb02c55b64a15b278b1e66c7fc776/playlist_13.m3u8\n')
+
+    m3u_output.append('#EXTINF:-1 group-title="Digital TV", TV5 HD (Static)')
+    m3u_output.append('https://639bc5877c5fe.streamlock.net/tv5hdlive/tv5hdlive/playlist.m3u8\n')
+
     print("Fetching streams from TVJAA...")
     for name, slug in channels.items():
         stream_url = get_tvjaa_stream(slug)
@@ -46,7 +53,7 @@ def main():
         else:
             print(f"Failed: {name}")
 
-    # บันทึกไฟล์ playlist.m3u
+    # บันทึกลงไฟล์ playlist.m3u
     with open("playlist.m3u", "w", encoding="utf-8") as f:
         f.write("\n".join(m3u_output))
 
