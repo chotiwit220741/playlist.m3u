@@ -1,0 +1,36 @@
+name: Auto Renew M3U Token
+
+on:
+  schedule:
+    # รันอัตโนมัติทุกๆ 4 ชั่วโมง
+    - cron: '0 */4 * * *'
+  workflow_dispatch: # อนุญาตให้กดรันเองด้วยมือได้
+
+permissions:
+  contents: write
+
+jobs:
+  update-playlist:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Fetch Script
+        run: python fetch_m3u.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add playlist.m3u
+          git commit -m "Auto-update M3U tokens [skip ci]" || exit 0
+          git push
